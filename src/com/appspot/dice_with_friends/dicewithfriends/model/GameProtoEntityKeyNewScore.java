@@ -19,7 +19,7 @@
 package com.appspot.dice_with_friends.dicewithfriends.model;
 
 /**
- * Model definition for PlayerProtoDisplayName.
+ * Model definition for GameProtoEntityKeyNewScore.
  *
  * <p> This is the Java data model class that specifies how to parse/serialize into the JSON that is
  * transmitted over HTTP when working with the dicewithfriends. For a detailed explanation see:
@@ -29,37 +29,58 @@ package com.appspot.dice_with_friends.dicewithfriends.model;
  * @author Google, Inc.
  */
 @SuppressWarnings("javadoc")
-public final class PlayerProtoDisplayName extends com.google.api.client.json.GenericJson {
+public final class GameProtoEntityKeyNewScore extends com.google.api.client.json.GenericJson {
 
   /**
    * The value may be {@code null}.
    */
-  @com.google.api.client.util.Key("display_name")
-  private java.lang.String displayName;
+  @com.google.api.client.util.Key
+  private java.lang.String entityKey;
+
+  /**
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key("new_score") @com.google.api.client.json.JsonString
+  private java.lang.Long newScore;
 
   /**
    * @return value or {@code null} for none
    */
-  public java.lang.String getDisplayName() {
-    return displayName;
+  public java.lang.String getEntityKey() {
+    return entityKey;
   }
 
   /**
-   * @param displayName displayName or {@code null} for none
+   * @param entityKey entityKey or {@code null} for none
    */
-  public PlayerProtoDisplayName setDisplayName(java.lang.String displayName) {
-    this.displayName = displayName;
+  public GameProtoEntityKeyNewScore setEntityKey(java.lang.String entityKey) {
+    this.entityKey = entityKey;
+    return this;
+  }
+
+  /**
+   * @return value or {@code null} for none
+   */
+  public java.lang.Long getNewScore() {
+    return newScore;
+  }
+
+  /**
+   * @param newScore newScore or {@code null} for none
+   */
+  public GameProtoEntityKeyNewScore setNewScore(java.lang.Long newScore) {
+    this.newScore = newScore;
     return this;
   }
 
   @Override
-  public PlayerProtoDisplayName set(String fieldName, Object value) {
-    return (PlayerProtoDisplayName) super.set(fieldName, value);
+  public GameProtoEntityKeyNewScore set(String fieldName, Object value) {
+    return (GameProtoEntityKeyNewScore) super.set(fieldName, value);
   }
 
   @Override
-  public PlayerProtoDisplayName clone() {
-    return (PlayerProtoDisplayName) super.clone();
+  public GameProtoEntityKeyNewScore clone() {
+    return (GameProtoEntityKeyNewScore) super.clone();
   }
 
 }

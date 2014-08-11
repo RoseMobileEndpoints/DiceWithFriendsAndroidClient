@@ -19,7 +19,7 @@
 package com.appspot.dice_with_friends.dicewithfriends.model;
 
 /**
- * Model definition for PlayerProtoDisplayName.
+ * Model definition for GameProtoInviteeEmail.
  *
  * <p> This is the Java data model class that specifies how to parse/serialize into the JSON that is
  * transmitted over HTTP when working with the dicewithfriends. For a detailed explanation see:
@@ -29,37 +29,37 @@ package com.appspot.dice_with_friends.dicewithfriends.model;
  * @author Google, Inc.
  */
 @SuppressWarnings("javadoc")
-public final class PlayerProtoDisplayName extends com.google.api.client.json.GenericJson {
+public final class GameProtoInviteeEmail extends com.google.api.client.json.GenericJson {
 
   /**
    * The value may be {@code null}.
    */
-  @com.google.api.client.util.Key("display_name")
-  private java.lang.String displayName;
+  @com.google.api.client.util.Key("invitee_email")
+  private java.lang.String inviteeEmail;
 
   /**
    * @return value or {@code null} for none
    */
-  public java.lang.String getDisplayName() {
-    return displayName;
+  public java.lang.String getInviteeEmail() {
+    return inviteeEmail;
   }
 
   /**
-   * @param displayName displayName or {@code null} for none
+   * @param inviteeEmail inviteeEmail or {@code null} for none
    */
-  public PlayerProtoDisplayName setDisplayName(java.lang.String displayName) {
-    this.displayName = displayName;
+  public GameProtoInviteeEmail setInviteeEmail(java.lang.String inviteeEmail) {
+    this.inviteeEmail = inviteeEmail;
     return this;
   }
 
   @Override
-  public PlayerProtoDisplayName set(String fieldName, Object value) {
-    return (PlayerProtoDisplayName) super.set(fieldName, value);
+  public GameProtoInviteeEmail set(String fieldName, Object value) {
+    return (GameProtoInviteeEmail) super.set(fieldName, value);
   }
 
   @Override
-  public PlayerProtoDisplayName clone() {
-    return (PlayerProtoDisplayName) super.clone();
+  public GameProtoInviteeEmail clone() {
+    return (GameProtoInviteeEmail) super.clone();
   }
 
 }
