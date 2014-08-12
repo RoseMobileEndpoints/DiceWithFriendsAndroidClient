@@ -1,11 +1,11 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="edu.rosehulman.dicewithfriends.MainActivity" ><item
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
         android:id="@+id/action_add"
         android:icon="@drawable/ic_menu_add"
         android:showAsAction="withText|ifRoom"
         android:title="@string/action_add"/>
-<item
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never"
