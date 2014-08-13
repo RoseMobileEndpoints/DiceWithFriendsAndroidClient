@@ -11,6 +11,11 @@ import android.view.MenuItem;
 public class MainActivity extends Activity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+	// For logging
+	static final String DWF = "DWF";
+
+	
+	
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
 	 * navigation drawer.
