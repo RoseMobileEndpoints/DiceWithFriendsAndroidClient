@@ -16,10 +16,10 @@ class QueryForDisplayNameTask extends AsyncTask<String, Void, PlayerProtoDisplay
 
 	private TextView mTextView = null;
 	private String mEntityKey = null;
-	private Context mContext = null;
+	// private Context mContext = null;
 
 	public QueryForDisplayNameTask(Context context, TextView tv) {
-		mContext = context;
+		// mContext = context;
 		mTextView = tv;
 	}
 

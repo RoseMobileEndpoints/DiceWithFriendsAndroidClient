@@ -10,7 +10,7 @@ import junit.framework.Assert;
 import android.util.Log;
 
 public class DateUtils {
-
+ 
 	private static final String TAG = "TimeUtils";
 	private static final String SERVER_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
 	private static final String CURRENT_DAY_FORMAT = "h:mm:ss a";

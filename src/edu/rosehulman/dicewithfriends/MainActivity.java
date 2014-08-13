@@ -44,6 +44,8 @@ public class MainActivity extends Activity implements
 		if (ServiceUtils.getAccountName() == null) {
 			// Not signed in, show login window or request an existing account.
 			startActivityForResult(ServiceUtils.getCredential().newChooseAccountIntent(), REQUEST_ACCOUNT_PICKER);
+		} else {
+			PlayerUtils.getPlayerForUser();
 		}
 		
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
@@ -67,6 +69,7 @@ public class MainActivity extends Activity implements
 					Log.d(DWF, "Account name set to " + accountName);
 					
 					// TODO: Now I have an account name. But I need to get the player for me from the server, using an asynch task.
+					PlayerUtils.getPlayerForUser();
 				}
 			}
 			break;
