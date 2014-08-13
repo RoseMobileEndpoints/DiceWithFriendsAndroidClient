@@ -12,13 +12,12 @@ import android.widget.TextView;
 import com.appspot.dice_with_friends.dicewithfriends.model.Game;
 
 import edu.rosehulman.dicewithfriends.utils.DateUtils;
+import edu.rosehulman.dicewithfriends.utils.PlayerUtils;
 
 public class GameAdapter extends ArrayAdapter<Game> {
 
 	public GameAdapter(Context context, List<Game> objects) {
 		super(context, R.layout.game_list_row_view, R.id.opponent_text_view, objects);
-		// TODO Auto-generated constructor stub
-	
 	}
 	
 	@Override
@@ -27,7 +26,8 @@ public class GameAdapter extends ArrayAdapter<Game> {
 		Game game = getItem(position);
 
 		TextView opponentTextView = (TextView)view.findViewById(R.id.opponent_text_view);
-		opponentTextView.setText("Bob");
+		opponentTextView.setText("Fetching...");
+		PlayerUtils.setOpponentName(opponentTextView, game);
 
 		TextView dateTextView = (TextView)view.findViewById(R.id.date_text_view);
 		String dateString = game.getLastTouchDateTime();

@@ -2,11 +2,9 @@ package edu.rosehulman.dicewithfriends;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import android.app.Activity;
 import android.app.ListFragment;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,9 +15,7 @@ import android.view.ViewGroup;
 import com.appspot.dice_with_friends.dicewithfriends.Dicewithfriends;
 import com.appspot.dice_with_friends.dicewithfriends.model.Game;
 import com.appspot.dice_with_friends.dicewithfriends.model.GameCollection;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 
-import edu.rosehulman.dicewithfriends.utils.DateUtils;
 import edu.rosehulman.dicewithfriends.utils.ServiceUtils;
 
 public class GameListFragment extends ListFragment {
@@ -31,17 +27,6 @@ public class GameListFragment extends ListFragment {
 	private GameAdapter mGameAdapter;
 	private ArrayList<Game> mGames;
 
-	/**
-	 * Preference object where we store the name of the current user.
-	 */
-	SharedPreferences mSettings = null;
-
-	public static final String SHARED_PREFERENCES_NAME = "DiceWithFriends";
-	public static final String PREF_ACCOUNT_NAME = "PREF_ACCOUNT_NAME";
-	static final int REQUEST_ACCOUNT_PICKER = 1;
-	static final String KEY_ASSIGNMENT_ENTITY_KEY = "KEY_ASSIGNMENT_ID";
-	static final String KEY_ASSIGNMENT_NAME = "KEY_ASSIGNMENT_NAME";
-	static final String KEY_SERVICE = "KEY_SERVICE";
 
 	/**
 	 * Returns a new instance of this fragment for the given section number.
@@ -102,7 +87,7 @@ public class GameListFragment extends ListFragment {
 				// the service and the model.
 				// Log.d(MainActivity.DWF, "Using account name = " +
 				// mCredential.getSelectedAccountName());
-				Dicewithfriends.Game.List query = ServiceUtils.getService(getActivity()).game().list();
+				Dicewithfriends.Game.List query = ServiceUtils.getService().game().list();
 				Log.d(MainActivity.DWF, "Query = " + (query == null ? "null " : query.toString()));
 				query.setLimit(50L);
 				query.setIsComplete(false);
