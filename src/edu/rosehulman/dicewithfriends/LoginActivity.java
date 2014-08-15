@@ -84,7 +84,7 @@ public class LoginActivity extends Activity {
 			// Save this player for later
 			Log.d(Utils.DWF, "Got player, name = " + result.getDisplayName());
 			// TODO: Check if there is a display name. If not, then ask for one via dialog fragment. Then insert here and into backend.
-
+			
 			PlayerUtils.setPlayerForUser(result);
 		}
 	}
