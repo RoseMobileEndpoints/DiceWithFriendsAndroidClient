@@ -38,6 +38,7 @@ public class MainActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		// CONSIDER: This may not be the best place to do this.
 		PlayerUtils.setContext(this);
 		ServiceUtils.setContext(this);
 		

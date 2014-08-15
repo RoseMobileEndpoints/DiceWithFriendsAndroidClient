@@ -65,4 +65,6 @@ public class ServiceUtils {
 		return sCredential;
 	}
 
+	// CONSIDER: Save player as a SharedPref or sqlite
+	
 }

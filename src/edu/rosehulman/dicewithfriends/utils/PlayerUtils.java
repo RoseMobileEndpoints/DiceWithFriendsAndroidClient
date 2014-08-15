@@ -2,14 +2,12 @@ package edu.rosehulman.dicewithfriends.utils;
 
 import java.util.HashMap;
 
+import junit.framework.Assert;
 import android.content.Context;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.appspot.dice_with_friends.dicewithfriends.model.Game;
 import com.appspot.dice_with_friends.dicewithfriends.model.Player;
-
-import edu.rosehulman.dicewithfriends.MainActivity;
 
 public class PlayerUtils {
 
@@ -23,18 +21,8 @@ public class PlayerUtils {
 
 	public static void setOpponentName(TextView opponentTextView, Game game) {
 		// Who is the opponent?
+		Assert.assertNotNull("No player for current user", mPlayerForCurrentUser);
 
-		// If we try to do this before it is initialized
-		if (mPlayerForCurrentUser == null) {
-			// TODO: Ask the server for me, in an AsyncTask. But better to do
-			// it in Main once an account is chosen.
-			return;
-		}
-
-		// FIXME: The player has a valid display name (Matt), but a NULL entityKey. Why? 
-		// Check the backend, since when you call player_get on it from the explorer, it doesn't return an entity key either.
-		Log.d(MainActivity.DWF, "Player for current user = " + mPlayerForCurrentUser.getDisplayName() + " "
-				+ mPlayerForCurrentUser.getEntityKey() + " " + mPlayerForCurrentUser);
 		String opponentKey = mPlayerForCurrentUser.getEntityKey().equals(game.getCreatorKey()) ? game.getInviteeKey()
 				: game.getCreatorKey();
 
