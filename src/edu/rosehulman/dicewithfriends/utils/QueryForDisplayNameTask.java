@@ -10,8 +10,6 @@ import android.widget.TextView;
 import com.appspot.dice_with_friends.dicewithfriends.Dicewithfriends;
 import com.appspot.dice_with_friends.dicewithfriends.model.PlayerProtoDisplayName;
 
-import edu.rosehulman.dicewithfriends.MainActivity;
-
 class QueryForDisplayNameTask extends AsyncTask<String, Void, PlayerProtoDisplayName> {
 
 	private TextView mTextView = null;
@@ -29,11 +27,11 @@ class QueryForDisplayNameTask extends AsyncTask<String, Void, PlayerProtoDisplay
 		try {
 			mEntityKey = entityKeys[0];
 			Dicewithfriends.Player.Getname query = ServiceUtils.getService().player().getname(mEntityKey);
-			Log.d(MainActivity.DWF, "Query = " + (query == null ? "null " : query.toString()));
+			Log.d(Utils.DWF, "Query = " + (query == null ? "null " : query.toString()));
 			playerName = query.execute();
 
 		} catch (IOException e) {
-			Log.d(MainActivity.DWF, "Failed loading " + e, e);
+			Log.d(Utils.DWF, "Failed loading " + e, e);
 
 		}
 		return playerName;
@@ -43,7 +41,7 @@ class QueryForDisplayNameTask extends AsyncTask<String, Void, PlayerProtoDisplay
 	protected void onPostExecute(PlayerProtoDisplayName result) {
 		super.onPostExecute(result);
 		if (result == null) {
-			Log.d(MainActivity.DWF, "Failed loading, result playername is null");
+			Log.d(Utils.DWF, "Failed loading, result playername is null");
 			return;
 		}
 		PlayerUtils.addNameToMap(mEntityKey, result.getDisplayName());

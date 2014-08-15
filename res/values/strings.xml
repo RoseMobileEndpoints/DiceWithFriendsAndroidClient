@@ -15,6 +15,9 @@
     <string name="in_progress_solo_games">In-progress solo games</string>
     <string name="finished_solo_games">Finished solo games</string>
     <string name="no_games_found">No games found</string>
-    
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="logo">Logo</string>
 
 </resources>

@@ -17,6 +17,7 @@ import com.appspot.dice_with_friends.dicewithfriends.model.Game;
 import com.appspot.dice_with_friends.dicewithfriends.model.GameCollection;
 
 import edu.rosehulman.dicewithfriends.utils.ServiceUtils;
+import edu.rosehulman.dicewithfriends.utils.Utils;
 
 public class GameListFragment extends ListFragment {
 	/**
@@ -48,7 +49,7 @@ public class GameListFragment extends ListFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		mGames = new ArrayList<Game>();
 		
-		View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_game_display, container, false);
 
 		// TODO: Update view to display the games for this user.
 		updateGames();
@@ -63,7 +64,7 @@ public class GameListFragment extends ListFragment {
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
+		((GameDisplayActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
 	}
 
 	// ---------------------------------------------------------------------------------
@@ -88,15 +89,15 @@ public class GameListFragment extends ListFragment {
 				// Log.d(MainActivity.DWF, "Using account name = " +
 				// mCredential.getSelectedAccountName());
 				Dicewithfriends.Game.List query = ServiceUtils.getService().game().list();
-				Log.d(MainActivity.DWF, "Query = " + (query == null ? "null " : query.toString()));
+				Log.d(Utils.DWF, "Query = " + (query == null ? "null " : query.toString()));
 				query.setLimit(50L);
 				query.setIsComplete(false);
 				query.setIsSolo(false);
 				games = query.execute();
-				Log.d(MainActivity.DWF, "Games = " + games);
+				Log.d(Utils.DWF, "Games = " + games);
 
 			} catch (IOException e) {
-				Log.d(MainActivity.DWF, "Failed loading " + e, e);
+				Log.d(Utils.DWF, "Failed loading " + e, e);
 
 			}
 			return games;
@@ -106,7 +107,7 @@ public class GameListFragment extends ListFragment {
 		protected void onPostExecute(GameCollection result) {
 			super.onPostExecute(result);
 			if (result == null) {
-				Log.d(MainActivity.DWF, "Failed loading, result is null");
+				Log.d(Utils.DWF, "Failed loading, result is null");
 				return;
 			}
 

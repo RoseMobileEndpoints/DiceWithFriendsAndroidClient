@@ -1,25 +1,17 @@
 package edu.rosehulman.dicewithfriends;
 
-import android.accounts.AccountManager;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import edu.rosehulman.dicewithfriends.utils.PlayerUtils;
-import edu.rosehulman.dicewithfriends.utils.ServiceUtils;
 
-public class MainActivity extends Activity implements
+public class GameDisplayActivity extends Activity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-	// For logging
-	public static final String DWF = "DWF";
 
-	static final int REQUEST_ACCOUNT_PICKER = 1;
 	
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
@@ -36,18 +28,7 @@ public class MainActivity extends Activity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-
-		// CONSIDER: This may not be the best place to do this.
-		PlayerUtils.setContext(this);
-		ServiceUtils.setContext(this);
-		
-		if (ServiceUtils.getAccountName() == null) {
-			// Not signed in, show login window or request an existing account.
-			startActivityForResult(ServiceUtils.getCredential().newChooseAccountIntent(), REQUEST_ACCOUNT_PICKER);
-		} else {
-			PlayerUtils.getPlayerForUser();
-		}
+		setContentView(R.layout.activity_game_display);
 		
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
@@ -58,24 +39,6 @@ public class MainActivity extends Activity implements
 				(DrawerLayout) findViewById(R.id.drawer_layout));
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		switch (requestCode) {
-		case REQUEST_ACCOUNT_PICKER:
-			if (data != null && data.getExtras() != null) {
-				String accountName = data.getExtras().getString(AccountManager.KEY_ACCOUNT_NAME);
-				if (accountName != null) {
-					ServiceUtils.setAccountName(accountName); // User is authorized.
-					Log.d(DWF, "Account name set to " + accountName);
-					
-					// TODO: Now I have an account name. But I need to get the player for me from the server, using an asynch task.
-					PlayerUtils.getPlayerForUser();
-				}
-			}
-			break;
-		}
-	}
 	
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {

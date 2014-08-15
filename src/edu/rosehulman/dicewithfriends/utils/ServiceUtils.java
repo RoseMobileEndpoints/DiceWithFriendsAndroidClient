@@ -17,11 +17,6 @@ public class ServiceUtils {
 
 	private static Dicewithfriends mService = null;
 
-	/**
-	 * Preference object where we store the name of the current user.
-	 */
-
-	public static final String SHARED_PREFERENCES_NAME = "DiceWithFriends";
 	public static final String PREF_ACCOUNT_NAME = "PREF_ACCOUNT_NAME";
 	private static Context sContext;
 
@@ -38,7 +33,7 @@ public class ServiceUtils {
 	}
 
 	public static String getAccountName() {
-		SharedPreferences prefs = sContext.getSharedPreferences(SHARED_PREFERENCES_NAME, 0);
+		SharedPreferences prefs = sContext.getSharedPreferences(Utils.SHARED_PREFERENCES_NAME, 0);
 		return prefs.getString(PREF_ACCOUNT_NAME, null);
 	}
 
@@ -48,7 +43,7 @@ public class ServiceUtils {
 	 * @param accountName
 	 */
 	public static void setAccountName(String accountName) {
-		SharedPreferences prefs = sContext.getSharedPreferences(SHARED_PREFERENCES_NAME, 0);
+		SharedPreferences prefs = sContext.getSharedPreferences(Utils.SHARED_PREFERENCES_NAME, 0);
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString(PREF_ACCOUNT_NAME, accountName);
 		editor.commit();
@@ -66,5 +61,5 @@ public class ServiceUtils {
 	}
 
 	// CONSIDER: Save player as a SharedPref or sqlite
-	
+
 }
