@@ -1,6 +1,5 @@
 package edu.rosehulman.dicewithfriends.utils;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.appspot.dice_with_friends.dicewithfriends.Dicewithfriends;
@@ -18,11 +17,6 @@ public class ServiceUtils {
 	private static Dicewithfriends mService = null;
 
 	public static final String PREF_ACCOUNT_NAME = "PREF_ACCOUNT_NAME";
-	private static Context sContext;
-
-	public static void setContext(Context context) {
-		sContext = context;
-	}
 
 	public static Dicewithfriends getService() {
 		if (mService == null) {
@@ -33,7 +27,7 @@ public class ServiceUtils {
 	}
 
 	public static String getAccountName() {
-		SharedPreferences prefs = sContext.getSharedPreferences(Utils.SHARED_PREFERENCES_NAME, 0);
+		SharedPreferences prefs = Utils.getContext().getSharedPreferences(Utils.SHARED_PREFERENCES_NAME, 0);
 		return prefs.getString(PREF_ACCOUNT_NAME, null);
 	}
 
@@ -43,7 +37,7 @@ public class ServiceUtils {
 	 * @param accountName
 	 */
 	public static void setAccountName(String accountName) {
-		SharedPreferences prefs = sContext.getSharedPreferences(Utils.SHARED_PREFERENCES_NAME, 0);
+		SharedPreferences prefs = Utils.getContext().getSharedPreferences(Utils.SHARED_PREFERENCES_NAME, 0);
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString(PREF_ACCOUNT_NAME, accountName);
 		editor.commit();
@@ -53,11 +47,16 @@ public class ServiceUtils {
 	public static GoogleAccountCredential getCredential() {
 		if (sCredential == null) {
 			// Web client id
-			sCredential = GoogleAccountCredential.usingAudience(sContext,
+			sCredential = GoogleAccountCredential.usingAudience(Utils.getContext(),
 					"server:client_id:1034873038322-8s341nnf24dhd1i0es7k9drldjm7o59g.apps.googleusercontent.com");
 			sCredential.setSelectedAccountName(getAccountName());
 		}
 		return sCredential;
+	}
+
+	public static void signout() {
+		setAccountName(null); // handles credential too.
+		PlayerUtils.setPlayerForUser(null);
 	}
 
 	// CONSIDER: Save player as a SharedPref or sqlite
