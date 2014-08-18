@@ -6,12 +6,15 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.appspot.dice_with_friends.dicewithfriends.Dicewithfriends;
 import com.appspot.dice_with_friends.dicewithfriends.model.Game;
@@ -26,6 +29,7 @@ public class GameListFragment extends ListFragment {
 	 * The fragment argument representing the section number for this fragment.
 	 */
 	private static final String ARG_SECTION_NUMBER = "section_number";
+	protected static final int REQUEST_CODE_GAME = 1;
 
 	enum GameListType {
 		WAITING_FOR_ME, WAITING_ONLY_FOR_OPPONENT, FINISHED_MULTIPLAYER_GAMES, IN_PROGRESS_SOLO_GAMES, FINISHED_SOLO_GAMES
@@ -54,13 +58,36 @@ public class GameListFragment extends ListFragment {
 		// Update view to display the games for this user.
 		int sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
 		mType = GameListType.values()[sectionNumber];
+		
+		// Takes awhile to query.
 		updateGames();
-
-		// TODO: Set item listener to launch game.
 
 		return rootView;
 	}
 
+	// TODO: CONSIDER: Not sure if this is where this listener should go. There was no listview yet when it was in onCreate. 
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+
+		// Set item listener to launch game.
+		getListView().setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Game game = (Game) getListAdapter().getItem(position);
+				Intent intent = new Intent(getActivity(), GameActivity.class);
+				// TODO: Code-review and test passing game to the other activity. Some testing done already.
+				GameExtras.putGameExtras(intent, game);
+				startActivity(intent);
+
+				// TODO: Write onResume to refresh once we get here after a game
+				// completes.
+			}
+		});
+	}
+	
+	
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);

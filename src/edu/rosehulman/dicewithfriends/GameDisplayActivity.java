@@ -11,8 +11,6 @@ import android.view.MenuItem;
 
 public class GameDisplayActivity extends Activity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
-
-
 	
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
