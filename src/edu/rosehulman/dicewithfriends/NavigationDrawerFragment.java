@@ -98,13 +98,9 @@ public class NavigationDrawerFragment extends Fragment {
 				selectItem(position);
 			}
 		});
+		String[] gameTypes = getResources().getStringArray(R.array.game_types);
 		mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar().getThemedContext(),
-				android.R.layout.simple_list_item_activated_1, android.R.id.text1, new String[] {
-						getString(R.string.waiting_for_me),
-						getString(R.string.waiting_only_for_opponent),
-						getString(R.string.finished_multiplayer_games),
-						getString(R.string.in_progress_solo_games),
-						getString(R.string.finished_solo_games) }));
+				android.R.layout.simple_list_item_activated_1, android.R.id.text1, gameTypes));
 		mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 		return mDrawerListView;
 	}

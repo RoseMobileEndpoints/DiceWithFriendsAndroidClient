@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.appspot.dice_with_friends.dicewithfriends.model.Game;
 
 import edu.rosehulman.dicewithfriends.utils.DateUtils;
+import edu.rosehulman.dicewithfriends.utils.GameUtils;
 import edu.rosehulman.dicewithfriends.utils.PlayerUtils;
 
 @SuppressLint("DefaultLocale")
@@ -38,20 +39,8 @@ public class GameAdapter extends ArrayAdapter<Game> {
 		dateTextView.setText(DateUtils.getDisplayStringFromDate(date));
 
 		TextView statusTextView = (TextView)view.findViewById(R.id.status_text_view);
-		List<Long> scores;
-		if (game.getCreatorKey().equals(PlayerUtils.getPlayerForUser().getEntityKey())) {
-			scores = game.getCreatorScores();
-		} else {
-			scores = game.getInviteeScores();
-		}
-		if (scores == null) {
-			scores = new ArrayList<Long>();
-		}
-		Long sum = 0L;
-		for (Long score : scores) {
-			sum += score;
-		}
-		String message = String.format("Round %d,  %d points", scores.size(), sum);
+		String message = String.format("Round %d,  %d points", GameUtils.getUserRound(game),
+				GameUtils.getUserScore(game));
 		statusTextView.setText(message);
 		return view;
 	}

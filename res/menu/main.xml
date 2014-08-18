@@ -6,6 +6,11 @@
         android:showAsAction="withText|ifRoom"
         android:title="@string/action_add"/>
 <item
+        android:id="@+id/action_sync"
+        android:orderInCategory="90"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_sync"/>
+<item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never"

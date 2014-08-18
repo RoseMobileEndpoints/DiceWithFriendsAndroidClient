@@ -26,6 +26,8 @@ public class GameDisplayActivity extends Activity implements
 	 */
 	private CharSequence mTitle;
 
+	private GameListFragment mGameListFragment;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,31 +47,14 @@ public class GameDisplayActivity extends Activity implements
 	public void onNavigationDrawerItemSelected(int position) {
 		// update the main content by replacing fragments
 		FragmentManager fragmentManager = getFragmentManager();
+		mGameListFragment = GameListFragment.newInstance(position); 
 		fragmentManager.beginTransaction()
-				.replace(R.id.container, GameListFragment.newInstance(position + 1)).commit();
+				.replace(R.id.container, mGameListFragment).commit();
 	}
 
-	public void onSectionAttached(int number) {
-		switch (number) {
-		case 1:
-			mTitle = getString(R.string.waiting_for_me);
-			break;
-		case 2:
-			mTitle = getString(R.string.waiting_only_for_opponent);
-			break;
-		case 3:
-			mTitle = getString(R.string.finished_multiplayer_games);
-			break;
-		case 4:
-			mTitle = getString(R.string.in_progress_solo_games);
-			break;
-		case 5:
-			mTitle = getString(R.string.finished_solo_games);
-			break;
-		}
-		
+	public void onFragmentAttached(int number) {
+		mTitle = getResources().getStringArray(R.array.game_types)[number];
 	}
-
 	
 	public void restoreActionBar() {
 		ActionBar actionBar = getActionBar();
@@ -97,6 +82,9 @@ public class GameDisplayActivity extends Activity implements
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		switch (item.getItemId()) {
+		case R.id.action_sync:
+			mGameListFragment.updateGames();
+			return true;
 		case R.id.action_settings:
 			return true;
 		case R.id.action_signout:

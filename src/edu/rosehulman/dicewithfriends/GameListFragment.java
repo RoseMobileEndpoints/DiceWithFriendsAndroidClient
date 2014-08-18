@@ -2,6 +2,7 @@ package edu.rosehulman.dicewithfriends;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.ListFragment;
@@ -16,6 +17,7 @@ import com.appspot.dice_with_friends.dicewithfriends.Dicewithfriends;
 import com.appspot.dice_with_friends.dicewithfriends.model.Game;
 import com.appspot.dice_with_friends.dicewithfriends.model.GameCollection;
 
+import edu.rosehulman.dicewithfriends.utils.GameUtils;
 import edu.rosehulman.dicewithfriends.utils.ServiceUtils;
 import edu.rosehulman.dicewithfriends.utils.Utils;
 
@@ -25,9 +27,11 @@ public class GameListFragment extends ListFragment {
 	 */
 	private static final String ARG_SECTION_NUMBER = "section_number";
 
-	private GameAdapter mGameAdapter;
-	private ArrayList<Game> mGames;
+	enum GameListType {
+		WAITING_FOR_ME, WAITING_ONLY_FOR_OPPONENT, FINISHED_MULTIPLAYER_GAMES, IN_PROGRESS_SOLO_GAMES, FINISHED_SOLO_GAMES
+	}
 
+	private GameListType mType;
 
 	/**
 	 * Returns a new instance of this fragment for the given section number.
@@ -38,8 +42,6 @@ public class GameListFragment extends ListFragment {
 		args.putInt(ARG_SECTION_NUMBER, sectionNumber);
 		fragment.setArguments(args);
 
-		// TODO: Everything associated with the account and service
-		
 		return fragment;
 	}
 
@@ -47,14 +49,12 @@ public class GameListFragment extends ListFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		mGames = new ArrayList<Game>();
-		
 		View rootView = inflater.inflate(R.layout.fragment_game_display, container, false);
 
-		// TODO: Update view to display the games for this user.
+		// Update view to display the games for this user.
+		int sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
+		mType = GameListType.values()[sectionNumber];
 		updateGames();
-//		mGameAdapter = new GameAdapter(getActivity(), mGames);
-//		setListAdapter(mGameAdapter);
 
 		// TODO: Set item listener to launch game.
 
@@ -64,14 +64,14 @@ public class GameListFragment extends ListFragment {
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		((GameDisplayActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
+		((GameDisplayActivity) activity).onFragmentAttached(getArguments().getInt(ARG_SECTION_NUMBER));
 	}
 
 	// ---------------------------------------------------------------------------------
 	// Backend communication
 	// ---------------------------------------------------------------------------------
 
-	private void updateGames() {
+	void updateGames() {
 		new QueryForGamesTask().execute();
 	}
 
@@ -91,8 +91,25 @@ public class GameListFragment extends ListFragment {
 				Dicewithfriends.Game.List query = ServiceUtils.getService().game().list();
 				Log.d(Utils.DWF, "Query = " + (query == null ? "null " : query.toString()));
 				query.setLimit(50L);
-				query.setIsComplete(false);
-				query.setIsSolo(false);
+				switch (mType) {
+				case WAITING_FOR_ME:
+				case WAITING_ONLY_FOR_OPPONENT:
+					query.setIsComplete(false);
+					query.setIsSolo(false);
+					break;
+				case FINISHED_MULTIPLAYER_GAMES:
+					query.setIsComplete(true);
+					query.setIsSolo(false);
+					break;
+				case IN_PROGRESS_SOLO_GAMES:
+					query.setIsComplete(false);
+					query.setIsSolo(true);
+					break;
+				case FINISHED_SOLO_GAMES:
+					query.setIsComplete(true);
+					query.setIsSolo(true);
+					break;
+				}
 				games = query.execute();
 				Log.d(Utils.DWF, "Games = " + games);
 
@@ -114,9 +131,26 @@ public class GameListFragment extends ListFragment {
 			if (result.getItems() == null) {
 				result.setItems(new ArrayList<Game>());
 			}
+			if (mType == GameListType.WAITING_FOR_ME || mType == GameListType.WAITING_ONLY_FOR_OPPONENT) {
+				filterGames(result.getItems());
 
+			}
 			GameAdapter adapter = new GameAdapter(getActivity(), result.getItems());
 			setListAdapter(adapter);
+		}
+
+		private void filterGames(List<Game> games) {
+			for (int i = games.size() - 1; i >= 0; i--) {
+				Game game = games.get(i);
+				Long score = GameUtils.getUserScore(game);
+				boolean waitingForMeFilter = mType == GameListType.WAITING_FOR_ME
+						&& score >= GameUtils.GAME_SCORE_TO_WIN;
+				boolean waitingForOpponentFilter = mType == GameListType.WAITING_ONLY_FOR_OPPONENT
+						&& score < GameUtils.GAME_SCORE_TO_WIN;
+				if (waitingForMeFilter || waitingForOpponentFilter) {
+					games.remove(i);
+				}
+			}
 		}
 	}
 
