@@ -48,6 +48,8 @@ public class GameExtras {
 		game.setCreatorKey(intent.getStringExtra(EXTRA_GAME_CREATOR_KEY));
 		game.setInviteeKey(intent.getStringExtra(EXTRA_GAME_INVITEE_KEY));
 
+		// Do ourselves, since toArray gives an Object[] not a long[], and
+		// intents don't like those.
 		long[] scores = intent.getLongArrayExtra(EXTRA_GAME_CREATOR_SCORES);
 		if (scores != null) {
 			ArrayList<Long> creatorScores = new ArrayList<Long>();
