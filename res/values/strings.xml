@@ -16,5 +16,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="logo">Logo</string>
+    <string name="title_activity_game">Game</string>
+    <string name="official_game_round_format">Official Game Round %d</string>
 
 </resources>
