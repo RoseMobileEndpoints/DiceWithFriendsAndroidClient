@@ -257,11 +257,8 @@ public class NavigationDrawerFragment extends Fragment {
 			return true;
 		}
 
-		if (item.getItemId() == R.id.action_add) {
-			Toast.makeText(getActivity(), "New game", Toast.LENGTH_SHORT).show();
-			return true;
-		}
-
+		// TODO: Allow for sign out (and settings?) from global menu.
+		
 		return super.onOptionsItemSelected(item);
 	}
 

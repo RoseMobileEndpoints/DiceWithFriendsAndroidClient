@@ -37,7 +37,7 @@ public class LoginActivity extends Activity {
 		Utils.setContext(this);
 
 		if (PlayerUtils.hasPlayer()) {
-			startActivity(new Intent(this, GameDisplayActivity.class));
+			startActivity(new Intent(this, GameListActivity.class));
 		}
 	}
 
@@ -109,7 +109,7 @@ public class LoginActivity extends Activity {
 			// via dialog fragment. Then insert here and into backend.
 			if (result.getDisplayName() != null) {
 				PlayerUtils.setPlayerForUser(result);
-				startActivity(new Intent(LoginActivity.this, GameDisplayActivity.class));
+				startActivity(new Intent(LoginActivity.this, GameListActivity.class));
 			} else {
 				DialogFragment df = new DialogFragment() {
 					@Override
@@ -167,7 +167,7 @@ public class LoginActivity extends Activity {
 				Log.d(Utils.DWF, "Error inserting game, result is null");
 				return;
 			}
-			startActivity(new Intent(LoginActivity.this, GameDisplayActivity.class));
+			startActivity(new Intent(LoginActivity.this, GameListActivity.class));
 		}
 	}
 

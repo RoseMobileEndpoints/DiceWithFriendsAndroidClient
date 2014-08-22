@@ -91,7 +91,7 @@ public class GameListFragment extends ListFragment {
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		((GameDisplayActivity) activity).onFragmentAttached(getArguments().getInt(ARG_SECTION_NUMBER));
+		((GameListActivity) activity).onFragmentAttached(getArguments().getInt(ARG_SECTION_NUMBER));
 	}
 
 	// ---------------------------------------------------------------------------------
