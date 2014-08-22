@@ -20,5 +20,11 @@
     <string name="official_game_round_format">Official Game Round %d</string>
     <string name="who_would_you_like_to_play_against">Who would you like to play against?</string>
     <string name="new_game_opponent_email_hint">Opponent email</string>
-
-</resources>
+    <string name="my_name_placeholder">My name</string>
+    <string name="opponent_name_placeholder">Opponent name</string>
+    <string name="my_score_placeholder">My score</string>
+    <string name="opponent_score_placeholder">Opponent score</string>
+    <string name="game_status_placeholder">New game</string>
+    <string name="stop_button">Stop</string>
+    <string name="roll_button">Roll</string>
+</resources>

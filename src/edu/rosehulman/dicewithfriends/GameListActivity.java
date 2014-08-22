@@ -47,7 +47,7 @@ public class GameListActivity extends Activity implements NavigationDrawerFragme
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_game_display);
+		setContentView(R.layout.activity_game_list);
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(
 				R.id.navigation_drawer);
